@@ -59,7 +59,7 @@ module Make (Syntax : Sig.Camlp4Syntax) = struct
       ] ];
 
     patt: LEVEL "simple"
-      [ [ "[@"; "]" -> <:patt< Types.Cons >>
+      [ [ "[@"; "]"                                                   -> <:patt< Types.Cons >>
         | "[@"; mk_nlist = sem_patt_for_list; "@::"; last = patt; "]" -> mk_nlist last
         | "[@"; mk_nlist = sem_patt_for_list; "]"                     -> mk_nlist <:patt< Types.Nil >>
       ] ];
