@@ -1,0 +1,27 @@
+# OASIS_START
+# DO NOT EDIT (digest: 63da30d0ed213ebd51ae7982c0cccbec)
+# Ignore VCS directories, you can use the same kind of rule outside 
+# OASIS_START/STOP if you want to exclude directories that contains 
+# useless stuff for the build process
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library ilist
+"lib/ilist.cmxs": use_ilist
+# Library ilist.syntax
+"syntax/ilist.syntax.cmxs": use_ilist.syntax
+<syntax/*.ml{,i}>: use_ilist
+# Library ilist-examples
+"examples/ilist-examples.cmxs": use_ilist-examples
+<examples/*.ml{,i}>: use_ilist.syntax
+<examples/*.ml{,i}>: use_ilist
+# OASIS_STOP
+<syntax/*>: camlp4orf, pkg_camlp4.fulllib
+<examples/*>: pp(camlp4o syntax/pa_ilist.cmo)

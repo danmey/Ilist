@@ -1,0 +1,40 @@
+#                                                               -*-conf-*-
+OASISFormat: 0.3
+Name:        ilist
+Version:     0.1.0
+Synopsis:    Indexed lists
+Authors:     Wojciech Meyer
+License:     BSD3
+Plugins:     META (0.2), StdFiles (0.2)
+BuildTools:  ocamlbuild
+
+Library "ilist"
+  Path:         lib/
+  Modules:      NList, IList
+  BuildTools:   ocamlbuild
+
+Library "ilist.syntax"
+  Path:         syntax/
+  BuildDepends: ilist
+  Modules:      Pa_ilist
+  BuildTools:   ocamlbuild
+
+Library "ilist-examples"
+  Path:         examples/
+  BuildDepends: ilist, ilist.syntax
+  Modules:      Construct
+  BuildTools:   ocamlbuild
+
+Document "ilist-doc"
+  Title:                API reference for ilist
+  Type:                 ocamlbuild (0.3)
+  Install:              true
+  InstallDir:           $htmldir/api
+  BuildTools:           ocamldoc
+  XOCamlbuildPath:      ./
+  XOCamlbuildLibraries: ilist
+
+SourceRepository master
+  Type:     git
+  Location: git://github.com/danmey/safelib.git
+  Browser:  https://github.com/danmey/safelib
