@@ -77,6 +77,7 @@ let mapper =
         | Pstr_open {txt = Lident "NLIST"} -> {< nlst = true  >} # structure next
         | _ -> super # structure_item i end @ this # structure next
     | (i :: next) as l -> super # structure_item i @ this # structure next
+    | [] -> []
   end
 
 let () = mapper # main
