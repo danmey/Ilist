@@ -36,5 +36,5 @@ Document "ilist-doc"
 
 SourceRepository master
   Type:     git
-  Location: git://github.com/danmey/safelib.git
-  Browser:  https://github.com/danmey/safelib
+  Location: git://github.com/danmey/ilist.git
+  Browser:  https://github.com/danmey/ilist
