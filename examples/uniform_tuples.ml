@@ -1,4 +1,4 @@
-module Type = IList.Type;;
+module Types = IList.Types;;
 
 (* With hetergonous list it's possibe to do *)
 let list_of_three = [@ 2; "string"; 1.3]
@@ -20,10 +20,13 @@ let list_of_four'' = [@ 2; 42; "string"; "test"]
 let extract_second_or_first_in_four : type a b c d . (((d, a) Types.cons, b) Types.cons, b) Types.cons Types.t -> b = function
 | [@_; x; _ ] -> x
 | [@x; _; _;_ ] -> x
-| _ -> failwith "No static gurantees"
+| _ -> failwith "No static gurantees";;
 
 extract_second_or_first_in_four list_of_four'';;
 
 (*  *)
-let extract_second_from_ant : type a b c d . (((d, a) Types.cons, b) Types.cons, b) Types.cons Types.t -> b = function
-| [@_ @:: x @:: _ ] -> x
+let extract_second_from_any : type a b c d e . ((((e, a) Types.cons, b) Types.cons, c) Types.cons, d) Types.cons Types.t -> c = function
+| _ @:: x @:: _  -> x;;
+
+extract_second_from_any [@ 2; 42; "string"; "test"];;
+extract_second_from_any [@ 2; 42; "string"; "test"; 3.42];;
