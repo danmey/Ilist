@@ -34,6 +34,14 @@ Library "ilist-examples"
   Modules:      Construct, List_of_list, Safe_path, Uniform_tuples
   BuildTools:   ocamlbuild
 
+Library "ilist-examples-ppx"
+  Path:         ppx_examples/
+  BuildDepends: ilist
+  Modules:      Ppx_example
+  BuildTools:   ocamlbuild
+  ByteOpt:      -ppx ppx/ppx_ilist.byte
+  NativeOpt:    -ppx ppx/ppx_ilist.byte
+
 Document "ilist-doc"
   Title:                API reference for ilist
   Type:                 ocamlbuild (0.3)

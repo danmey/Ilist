@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: 23824d0efcb0b3595b6e3806e0c7b27d)
+# DO NOT EDIT (digest: 3cdbd5a30348d35f36b403462f67d2dc)
 # Ignore VCS directories, you can use the same kind of rule outside 
 # OASIS_START/STOP if you want to exclude directories that contains 
 # useless stuff for the build process
@@ -31,6 +31,13 @@
 "examples/ilist-examples.cmxs": use_ilist-examples
 <examples/*.ml{,i}>: use_ilist.syntax
 <examples/*.ml{,i}>: use_ilist
+# Library ilist-examples-ppx
+"ppx_examples/ilist-examples-ppx.cmxs": use_ilist-examples-ppx
+<ppx_examples/ilist-examples-ppx.{cma,cmxa}>: oasis_library_ilist_examples_ppx_byte
+<ppx_examples/*.ml{,i}>: oasis_library_ilist_examples_ppx_byte
+<ppx_examples/ilist-examples-ppx.{cma,cmxa}>: oasis_library_ilist_examples_ppx_native
+<ppx_examples/*.ml{,i}>: oasis_library_ilist_examples_ppx_native
+<ppx_examples/*.ml{,i}>: use_ilist
 # OASIS_STOP
 <syntax/*>: camlp4orf, pkg_camlp4.fulllib
 <examples/*>: pp(camlp4o syntax/pa_ilist.cmo)
