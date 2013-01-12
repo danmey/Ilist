@@ -19,10 +19,19 @@ Library "ilist.syntax"
   Modules:      Pa_ilist
   BuildTools:   ocamlbuild
 
+# For this to make it work you have to drop ast_mapper.cmo from trunk
+# to the _build directory
+Executable "ppx_ilist"
+  Path:         ppx/
+  BuildDepends: ilist, compiler-libs, compiler-libs.common
+  MainIs:       ppx_ilist.ml
+  BuildTools:   ocamlbuild
+  ByteOpt:      ast_mapper.cmo
+
 Library "ilist-examples"
   Path:         examples/
   BuildDepends: ilist, ilist.syntax
-  Modules:      Construct
+  Modules:      Construct, List_of_list, Safe_path, Uniform_tuples
   BuildTools:   ocamlbuild
 
 Document "ilist-doc"

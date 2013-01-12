@@ -1,4 +1,4 @@
-module Type = NList.Type;;
+module Types = NList.Types;;
 
 (* NList allows us to define lists of list of the same length *)
 
@@ -6,4 +6,4 @@ module Type = NList.Type;;
 [ [@ 1;2]; [@3;4]; [@4;5]];;
 
 (* but this will not: *)
-[ [@2]; [@3;4]; [@4;5]];;
+(* [ [@2]; [@3;4]; [@4;5]];; *)
