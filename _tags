@@ -5,7 +5,6 @@
 # useless stuff for the build process
 <**/.svn>: -traverse
 <**/.svn>: not_hygienic
-true: not_hygienic
 ".bzr": -traverse
 ".bzr": not_hygienic
 ".hg": -traverse
@@ -42,3 +41,4 @@ true: not_hygienic
 # OASIS_STOP
 <syntax/*>: camlp4orf, pkg_camlp4.fulllib
 <examples/*>: pp(camlp4o syntax/pa_ilist.cmo)
+true: not_hygienic

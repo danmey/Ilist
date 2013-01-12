@@ -37,7 +37,7 @@ Library "ilist-examples"
 Library "ilist-examples-ppx"
   Path:         ppx_examples/
   BuildDepends: ilist
-  Modules:      Ppx_example
+  Modules:      Ppx_example, Safe_path
   BuildTools:   ocamlbuild
   ByteOpt:      -ppx ppx/ppx_ilist.byte
   NativeOpt:    -ppx ppx/ppx_ilist.byte

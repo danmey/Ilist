@@ -49,6 +49,9 @@ let mapper =
       | Pexp_open ({txt = Lident "NLIST"; loc = _}, e) ->
         {< nlst = true >} # expr e
 
+      | Pexp_open ({txt = Lident "LIST"; loc = _}, e) ->
+        {< nlst = false >} # expr e
+
       | Pexp_construct ({txt = Lident "[]"; loc}, None, false) when nlst = true ->
         { e with pexp_desc = Pexp_construct ({txt = Ldot (Lident "Types", "Nil"); loc}, None, false)}
 
@@ -59,12 +62,21 @@ let mapper =
 
     method! pat p =
       match p.ppat_desc with
+
       | Ppat_construct ({txt = Lident "[]"; loc}, None, false) when nlst = true ->
         { p with ppat_desc = Ppat_construct ({txt = Ldot (Lident "Types", "Nil"); loc}, None, false)}
+
       | Ppat_construct ({txt = Lident "::"; loc}, (Some ({ppat_desc = Ppat_tuple [first; second]})), f) when nlst = true ->
         { p with ppat_desc = Ppat_construct ({txt = Ldot (Lident "Types", "Cons"); loc},Some ({ p with ppat_desc = Ppat_tuple [this # pat first;this # pat second]}), f)}
       | _ -> super # pat p
 
+    method! structure = function
+    | (i :: next) as l ->
+      begin match i.pstr_desc with
+        | Pstr_open {txt = Lident "LIST" } -> {< nlst = false >} # structure next
+        | Pstr_open {txt = Lident "NLIST"} -> {< nlst = true  >} # structure next
+        | _ -> super # structure_item i end @ this # structure next
+    | (i :: next) as l -> super # structure_item i @ this # structure next
   end
 
 let () = mapper # main
