@@ -112,6 +112,8 @@ val unsafe : ('a, 'b) t -> 'a list
 
 (** Converting from normal list - requires final type to be denoted *)
 val safe : 'a list -> ('a, 'b) t
+val safe0 : 'a list -> ('a, nil) t
+val safe1x : 'a list -> ('a,'b) list1x
 
 (** Infix cons operator *)
 val (^:) : 'a -> ('a, 'b) t -> ('a, 'b cons) t

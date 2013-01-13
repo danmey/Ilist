@@ -70,6 +70,8 @@ let rec unsafe : type a b . (a,b) t -> a list = function
 
 (* Can't type follwing at all, is it possible? *)
 let safe : type a b . a list -> (a,b) t = Obj.magic
+let safe0 : type a b . a list -> (a,nil) t = Obj.magic
+let safe1x : type a b . a list -> (a,b) list1x = Obj.magic
 
 let rec rev : type a b . (a,b) t -> (a,b) t = fun l ->
   let l = unsafe l in
