@@ -71,7 +71,7 @@ let mapper =
       | _ -> super # pat p
 
     method! structure = function
-    | (i :: next) as l ->
+    | (i :: next) ->
       begin match i.pstr_desc with
         | Pstr_open {txt = Lident "LIST" } -> {< nlst = false >} # structure next
         | Pstr_open {txt = Lident "NLIST"} -> {< nlst = true  >} # structure next
