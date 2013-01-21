@@ -32,12 +32,12 @@
   ---------------------------------------------------------------------------*)
 
 module Types = struct
-  type (_, _) cons
-  type nil
+  type (_, _) cons = private TCons
+  type nil = private TNil
 
   type _ t =
-    | Cons : 'a * 'b t -> ('b, 'a) cons t
     | Nil : nil t
+    | Cons : 'a * 'b t -> ('b, 'a) cons t
 
 end
 

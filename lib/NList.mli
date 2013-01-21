@@ -42,15 +42,15 @@
 module Types : sig
 
   (** Cons cell at the type level *)
-  type _ cons
+  type _ cons = private TCons
 
   (** Empty list at the type level *)
-  type nil
+  type nil = private TNil
 
   (** Arbitral list, ['a] denotes type of element that this list holds, ['b] is invariant type *)
   type ('a,_) t =
-    | Cons : 'a * ('a, 'b) t -> ('a, 'b cons) t
     | Nil : ('a, nil) t
+    | Cons : 'a * ('a, 'b) t -> ('a, 'b cons) t
 end
 
 open Types
