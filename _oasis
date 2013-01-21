@@ -28,7 +28,6 @@ Executable "ilist.ppx"
   BuildDepends: ilist, compiler-libs, compiler-libs.common
   MainIs:       ppx_ilist.ml
   BuildTools:   ocamlbuild
-  ByteOpt+:     ast_mapper.cmo
 
 Library "ilist-examples"
   Path:         examples/
