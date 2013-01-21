@@ -14,7 +14,7 @@ let _ = string_of_relative (P ["src"; "projects"; "Ilist"]);;
 
 let of_string str =
   string_of_relative (P (LIST.(match Str.split (Str.regexp "/") str with
-  | x :: xs -> (NList.safe1x (x :: xs))
+  | x :: xs -> NList.safe1x x xs
   | _ -> failwith "bad pattern")))
 
 (* Following will not work *)
