@@ -1,7 +1,7 @@
 # OASIS_START
-# DO NOT EDIT (digest: d20feee4d8a62a5f4b245562f3f93c69)
-# Ignore VCS directories, you can use the same kind of rule outside
-# OASIS_START/STOP if you want to exclude directories that contains
+# DO NOT EDIT (digest: 86251b36108ac5d10f62f5eebc4df382)
+# Ignore VCS directories, you can use the same kind of rule outside 
+# OASIS_START/STOP if you want to exclude directories that contains 
 # useless stuff for the build process
 <**/.svn>: -traverse
 <**/.svn>: not_hygienic
@@ -19,6 +19,10 @@
 "syntax/ilist.syntax.cmxs": use_ilist.syntax
 <syntax/*.ml{,i}>: use_ilist
 # Executable ilist.ppx
+"ppx/ppx_ilist.byte": oasis_executable_ilist_ppx_byte
+<ppx/*.ml{,i}>: oasis_executable_ilist_ppx_byte
+"ppx/ppx_ilist.byte": oasis_executable_ilist_ppx_native
+<ppx/*.ml{,i}>: oasis_executable_ilist_ppx_native
 "ppx/ppx_ilist.byte": use_ilist
 "ppx/ppx_ilist.byte": pkg_compiler-libs
 "ppx/ppx_ilist.byte": pkg_compiler-libs.common
