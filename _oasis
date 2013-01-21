@@ -10,12 +10,12 @@ BuildTools:  ocamlbuild
 
 Flag "ppx"
      Description: "Build ppx based extension"
-     Default: false
+     Default: true
 
 Library "ilist"
-  Path:         lib/
-  Modules:      NList, IList
-  BuildTools:   ocamlbuild
+  Path:             lib/
+  Modules:          NList, IList
+  BuildTools:       ocamlbuild
   XMETADescription: Indexed lists
   XMETAType:        library
 
@@ -33,6 +33,8 @@ Executable "ilist.ppx"
   BuildDepends: ilist, compiler-libs, compiler-libs.common
   MainIs:       ppx_ilist.ml
   BuildTools:   ocamlbuild
+  ByteOpt+:     -I +compiler-libs ast_mapper.cmo
+  NativeOpt+:   -I +compiler-libs ast_mapper.cmxo
 
 Library "ilist-examples"
   Path:         examples/
