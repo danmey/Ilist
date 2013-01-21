@@ -1,16 +1,20 @@
 #                                                               -*-conf-*-
-OASISFormat: 0.3
-Name:        ilist
-Version:     0.2.0
-Synopsis:    Indexed lists
-Authors:     Wojciech Meyer
-License:     BSD3
-Plugins:     META (0.2), StdFiles (0.2)
-BuildTools:  ocamlbuild
+OASISFormat:        0.3
+Name:               ilist
+Version:            0.2.0
+Synopsis:           Indexed lists
+Authors:            Wojciech Meyer
+License:            BSD3
+Plugins:            META (0.2), StdFiles (0.2)
+BuildTools:         ocamlbuild
 
-Flag "ppx"
-     Description: "Build ppx based extension"
-     Default: true
+Flag "ppx_syntax"
+  Description:      "Build ppx based extension"
+  Default:          true
+
+Flag "p4_syntax"
+  Description:      "Build camlp4 based syntax extension"
+  Default:          true
 
 Library "ilist"
   Path:             lib/
@@ -19,39 +23,38 @@ Library "ilist"
   XMETADescription: Indexed lists
   XMETAType:        library
 
-Library "ilist.syntax"
-  Path:         syntax/
-  BuildDepends: ilist
-  Modules:      Pa_ilist
-  BuildTools:   ocamlbuild
+Library "syntax"
+  Path:             syntax/
+  Build$:           flag(p4_syntax)
+  Modules:          Pa_ilist
+  BuildTools:       ocamlbuild
+  BuildDepends:     ilist
 
-# For this to make it work you have to drop ast_mapper.cmo from trunk
-# to the _build directory
-Executable "ilist.ppx"
-  Build$:       flag(ppx)
-  Path:         ppx/
-  BuildDepends: ilist, compiler-libs, compiler-libs.common
-  MainIs:       ppx_ilist.ml
-  BuildTools:   ocamlbuild
-  ByteOpt+:     -I +compiler-libs ast_mapper.cmo
-  NativeOpt+:   -I +compiler-libs ast_mapper.cmxo
+Executable "ppx"
+  Path:             ppx/
+  Build$:           flag(ppx_syntax)
+  MainIs:           ppx_ilist.ml
+  BuildTools:       ocamlbuild
+  BuildDepends:     ilist, compiler-libs, compiler-libs.common
+  ByteOpt+:         -I +compiler-libs
+  NativeOpt+:       -I +compiler-libs
 
-Library "ilist-examples"
-  Path:         examples/
-  BuildDepends: ilist, ilist.syntax
-  Modules:      Construct, List_of_list, Safe_path, Uniform_tuples
-  BuildTools:   ocamlbuild
+Library "examples"
+  Path:            examples/
+  Modules:         Construct, List_of_list, Safe_path, Uniform_tuples
+  BuildTools:      ocamlbuild
+  BuildDepends:    ilist, syntax
 
-Library "ilist-examples-ppx"
-  Build$:       flag(ppx)
-  Path:         ppx_examples/
-  BuildDepends: ilist
-  Modules:      Ppx_example, Safe_path
-  BuildTools:   ocamlbuild
-  ByteOpt+:     -ppx ppx/ppx_ilist.byte
-  NativeOpt+:   -ppx ppx/ppx_ilist.byte
+Library "ppx-examples"
+  Path:            ppx_examples/
+  Build$:          flag(ppx_syntax)
+  Modules:         Ppx_example, Safe_path
+  BuildDepends:    ilist
+  BuildTools:      ocamlbuild
+  ByteOpt+:        -ppx ppx/ppx_ilist.byte
+  NativeOpt+:      -ppx ppx/ppx_ilist.byte
 
-Document "ilist-doc"
+Document "doc"
   Title:                API reference for ilist
   Type:                 ocamlbuild (0.3)
   Install:              true
