@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: 86251b36108ac5d10f62f5eebc4df382)
+# DO NOT EDIT (digest: 6b57f728609bd8870db0c1d35cbfa69d)
 # Ignore VCS directories, you can use the same kind of rule outside 
 # OASIS_START/STOP if you want to exclude directories that contains 
 # useless stuff for the build process
@@ -15,30 +15,30 @@
 "_darcs": not_hygienic
 # Library ilist
 "lib/ilist.cmxs": use_ilist
-# Library ilist.syntax
-"syntax/ilist.syntax.cmxs": use_ilist.syntax
+# Library syntax
+"syntax/syntax.cmxs": use_syntax
 <syntax/*.ml{,i}>: use_ilist
-# Executable ilist.ppx
-"ppx/ppx_ilist.byte": oasis_executable_ilist_ppx_byte
-<ppx/*.ml{,i}>: oasis_executable_ilist_ppx_byte
-"ppx/ppx_ilist.byte": oasis_executable_ilist_ppx_native
-<ppx/*.ml{,i}>: oasis_executable_ilist_ppx_native
+# Executable ppx
+"ppx/ppx_ilist.byte": oasis_executable_ppx_byte
+<ppx/*.ml{,i}>: oasis_executable_ppx_byte
+"ppx/ppx_ilist.byte": oasis_executable_ppx_native
+<ppx/*.ml{,i}>: oasis_executable_ppx_native
 "ppx/ppx_ilist.byte": use_ilist
 "ppx/ppx_ilist.byte": pkg_compiler-libs
 "ppx/ppx_ilist.byte": pkg_compiler-libs.common
 <ppx/*.ml{,i}>: use_ilist
 <ppx/*.ml{,i}>: pkg_compiler-libs
 <ppx/*.ml{,i}>: pkg_compiler-libs.common
-# Library ilist-examples
-"examples/ilist-examples.cmxs": use_ilist-examples
-<examples/*.ml{,i}>: use_ilist.syntax
+# Library examples
+"examples/examples.cmxs": use_examples
+<examples/*.ml{,i}>: use_syntax
 <examples/*.ml{,i}>: use_ilist
-# Library ilist-examples-ppx
-"ppx_examples/ilist-examples-ppx.cmxs": use_ilist-examples-ppx
-<ppx_examples/ilist-examples-ppx.{cma,cmxa}>: oasis_library_ilist_examples_ppx_byte
-<ppx_examples/*.ml{,i}>: oasis_library_ilist_examples_ppx_byte
-<ppx_examples/ilist-examples-ppx.{cma,cmxa}>: oasis_library_ilist_examples_ppx_native
-<ppx_examples/*.ml{,i}>: oasis_library_ilist_examples_ppx_native
+# Library ppx-examples
+"ppx_examples/ppx-examples.cmxs": use_ppx-examples
+<ppx_examples/ppx-examples.{cma,cmxa}>: oasis_library_ppx_examples_byte
+<ppx_examples/*.ml{,i}>: oasis_library_ppx_examples_byte
+<ppx_examples/ppx-examples.{cma,cmxa}>: oasis_library_ppx_examples_native
+<ppx_examples/*.ml{,i}>: oasis_library_ppx_examples_native
 <ppx_examples/*.ml{,i}>: use_ilist
 # OASIS_STOP
 <syntax/*>: camlp4orf, pkg_camlp4.fulllib
