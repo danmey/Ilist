@@ -8,6 +8,10 @@ License:     BSD3
 Plugins:     META (0.2), StdFiles (0.2)
 BuildTools:  ocamlbuild
 
+Flag "ppx"
+     Description: "Build ppx based extension"
+     Default: false
+
 Library "ilist"
   Path:         lib/
   Modules:      NList, IList
@@ -24,6 +28,7 @@ Library "ilist.syntax"
 # For this to make it work you have to drop ast_mapper.cmo from trunk
 # to the _build directory
 Executable "ilist.ppx"
+  Build$:       flag(ppx)
   Path:         ppx/
   BuildDepends: ilist, compiler-libs, compiler-libs.common
   MainIs:       ppx_ilist.ml
@@ -36,6 +41,7 @@ Library "ilist-examples"
   BuildTools:   ocamlbuild
 
 Library "ilist-examples-ppx"
+  Build$:       flag(ppx)
   Path:         ppx_examples/
   BuildDepends: ilist
   Modules:      Ppx_example, Safe_path
