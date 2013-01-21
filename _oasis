@@ -12,6 +12,8 @@ Library "ilist"
   Path:         lib/
   Modules:      NList, IList
   BuildTools:   ocamlbuild
+  XMETADescription: Indexed lists
+  XMETAType:        library
 
 Library "ilist.syntax"
   Path:         syntax/
@@ -21,12 +23,12 @@ Library "ilist.syntax"
 
 # For this to make it work you have to drop ast_mapper.cmo from trunk
 # to the _build directory
-Executable "ppx_ilist"
+Executable "ilist.ppx"
   Path:         ppx/
   BuildDepends: ilist, compiler-libs, compiler-libs.common
   MainIs:       ppx_ilist.ml
   BuildTools:   ocamlbuild
-  ByteOpt:      ast_mapper.cmo
+  ByteOpt+:     ast_mapper.cmo
 
 Library "ilist-examples"
   Path:         examples/
@@ -39,8 +41,8 @@ Library "ilist-examples-ppx"
   BuildDepends: ilist
   Modules:      Ppx_example, Safe_path
   BuildTools:   ocamlbuild
-  ByteOpt:      -ppx ppx/ppx_ilist.byte
-  NativeOpt:    -ppx ppx/ppx_ilist.byte
+  ByteOpt+:     -ppx ppx/ppx_ilist.byte
+  NativeOpt+:   -ppx ppx/ppx_ilist.byte
 
 Document "ilist-doc"
   Title:                API reference for ilist
