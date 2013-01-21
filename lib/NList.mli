@@ -110,13 +110,29 @@ val first3 : ('a, 'b) list3x -> 'a * 'a * 'a
 (** Converting to normal list *)
 val unsafe : ('a, 'b) t -> 'a list
 
-(** Converting from normal list - requires final type to be denoted *)
-val safe : 'a list -> ('a, 'b) t
-val safe0 : 'a list -> ('a, nil) t
-val safe1x : 'a list -> ('a,'b) list1x
+(** Converting from normal list - empty list *)
+val safe0x : 'a list -> ('a, nil) t
+
+(** Converting from normal list to list of at least one element *)
+val safe1x : 'a -> 'a list -> ('a,'b) list1x
+
+(** Converting from normal list to list of at least two elements *)
+val safe2x : 'a -> 'a -> 'a list -> ('a,'b) list2x
+
+(** Converting from normal list to list of at least three elements *)
+val safe3x : 'a -> 'a -> 'a -> 'a list -> ('a,'b) list3x
+
+(** Converting from normal list to list one element *)
+val safe1 : 'a -> 'a list1
+
+(** Converting from normal list to list of two elements *)
+val safe2 : 'a -> 'a ->  'a list2
+
+(** Converting from normal list to list of three elements *)
+val safe3 : 'a -> 'a -> 'a -> 'a list3
 
 (** Infix cons operator *)
 val (^:) : 'a -> ('a, 'b) t -> ('a, 'b cons) t
 
 (** End of list marker *)
-val e: ('a,nil) t
+val nil: ('a,nil) t

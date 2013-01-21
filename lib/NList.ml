@@ -68,17 +68,22 @@ let rec unsafe : type a b . (a,b) t -> a list = function
 | Nil -> []
 
 (* Can't type follwing at all, is it possible? *)
-let safe : type a b . a list -> (a,b) t = Obj.magic
-let safe0 : type a b . a list -> (a,nil) t = Obj.magic
-let safe1x : type a b . a list -> (a,b) list1x = Obj.magic
+let safe0x : type a b . a list -> (a,nil) t = Obj.magic
+let safe1x : type a b . a -> a list -> (a,b) list1x = fun f l -> cons f (Obj.magic l)
+let safe2x : type a b . a -> a -> a list -> (a,b) list2x = fun f s l -> cons f (cons s (Obj.magic l))
+let safe3x : type a b . a -> a -> a -> a list -> (a,b) list3x = fun f s t l -> cons f (cons s (cons t (Obj.magic l)))
+
+let safe1 : type a . a -> a list1 = fun f -> Cons (f, Nil)
+let safe2 : type a . a -> a -> a list2 = fun f s -> Cons (f, Cons (s, Nil))
+let safe3 : type a . a -> a -> a -> a list3 = fun f s t -> Cons (f, Cons (s, Cons (t, Nil)))
 
 let rec rev : type a b . (a,b) t -> (a,b) t = fun l ->
   let l = unsafe l in
   let l = List.rev l in
-  safe l
+  Obj.magic l
 
-let combine : type a b c . (a, c) t -> (b, c) t -> (a * b, c) t = fun l r -> safe (List.combine (unsafe l) (unsafe r))
-let split   : type a b c . (a * b, c) t -> (a, c) t * (b, c) t = fun l -> let l,r = (List.split (unsafe l)) in safe l, safe r
+let combine : type a b c . (a, c) t -> (b, c) t -> (a * b, c) t = fun l r -> Obj.magic (List.combine (unsafe l) (unsafe r))
+let split   : type a b c . (a * b, c) t -> (a, c) t * (b, c) t = fun l -> let l,r = (List.split (Obj.magic l)) in Obj.magic l, Obj.magic r
 
 let rec iter : ('a -> unit) -> ('a, 'b) t -> unit = fun f l ->
   List.iter f (unsafe l)
@@ -93,4 +98,4 @@ let first3 : type a b . (a, b) list3x -> (a * a * a) = fun (Cons (a, Cons (b, Co
 
 let (^:) x xs = Cons (x, xs)
 let (^^:) x xs = Cons (x, Cons (xs, Nil))
-let e = empty
+let nil = empty
