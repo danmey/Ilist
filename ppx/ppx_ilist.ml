@@ -39,7 +39,7 @@ open Longident
 
 let mapper =
   object(this)
-    inherit Ast_mapper.create as super
+    inherit Ast_mapper.mapper as super
 
     val nlst = false
 
@@ -79,4 +79,4 @@ let mapper =
     | [] -> []
   end
 
-let () = mapper # main
+let () = Ast_mapper.main mapper
