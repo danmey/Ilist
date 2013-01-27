@@ -40,25 +40,10 @@ module Types = struct
     | Cons : 'a * 'b t -> ('b, 'a) cons t
 
 end
-
 include Types
+
 let empty : nil t = Nil
 let cons : type a b c . a -> b t -> (b,a) cons t = fun x xs -> Cons (x, xs)
 let hd : type a b . (b,a) cons t -> a = fun (Cons (x,_)) -> x
 let tl : type a b . (b,a) cons t -> b t = fun (Cons (_,xs)) -> xs
 let singleton : type a . a -> (nil,a) cons t = fun x -> Cons (x, Nil)
-
-(* type ('a,'b) list1x = ('b cons) t *)
-(* type 'a list2 = ('a, nil cons cons) t *)
-(* type ('a,'b) list2x = ('a, 'b cons cons) t *)
-(* type 'a list3 = ('a, nil cons cons cons) t *)
-(* type ('a,'b) list3x = ('a, 'b cons cons cons) t *)
-
-
-(* let tuple2 : type a . a list2 -> (a * a) = fun (Cons (a, Cons (b, Nil))) -> (a,b) *)
-
-(* let tuple3 : type a . a list3 -> (a * a * a) = fun (Cons (a, Cons (b, Cons (c, Nil)))) -> (a,b,c) *)
-
-(* let first2 : type a b . (a,b) list2x -> (a * a) = fun (Cons (a, Cons (b, _))) -> (a,b) *)
-
-(* let first3 : type a b . (a, b) list3x -> (a * a * a) = fun (Cons (a, Cons (b, Cons (c, _)))) -> (a,b,c) *)
