@@ -56,11 +56,6 @@ let tl : type a b . (a, b cons) t -> (a, b) t = fun (Cons (_,xs)) -> xs
 let empty : type a . (a, nil) t = Nil
 let cons : type a b . a -> (a, b) t -> (a, b cons) t = fun x xs -> Cons (x,xs)
 
-let rec map : type a b . (a -> 'c) -> (a,b) t -> ('c,b) t = fun f l ->
-  match l with
-  | Cons (x, xs) -> Cons (f x, map f xs)
-  | Nil -> Nil
-
 let singleton : type a . a -> (a, nil cons) t = fun x -> Cons (x, Nil)
 
 let rec unsafe : type a b . (a,b) t -> a list = function
@@ -79,10 +74,24 @@ let safe1 : type a . a -> a list1 = fun f -> Cons (f, Nil)
 let safe2 : type a . a -> a -> a list2 = fun f s -> Cons (f, Cons (s, Nil))
 let safe3 : type a . a -> a -> a -> a list3 = fun f s t -> Cons (f, Cons (s, Cons (t, Nil)))
 
+let rec map : type a b . (a -> 'c) -> (a,b) t -> ('c,b) t = fun f l ->
+  let l = unsafe l in
+  let l = List.map f l in
+  safe l
+
+let rec mapi : type a b . (int -> a -> 'c) -> (a,b) t -> ('c,b) t = fun f l ->
+  let l = unsafe l in
+  let l = List.mapi f l in
+  safe l
+
 let rec rev : type a b . (a,b) t -> (a,b) t = fun l ->
   let l = unsafe l in
   let l = List.rev l in
   safe l
+
+let length : ('a, 'b) t -> int = fun l ->
+  let l = unsafe l in
+  List.length l
 
 let combine : type a b c . (a, c) t -> (b, c) t -> (a * b, c) t = fun l r ->
   safe (List.combine (unsafe l) (unsafe r))
@@ -92,6 +101,9 @@ let split   : type a b c . (a * b, c) t -> (a, c) t * (b, c) t = fun l ->
 
 let rec iter : ('a -> unit) -> ('a, 'b) t -> unit = fun f l ->
   List.iter f (unsafe l)
+
+let rec iteri : (int -> 'a -> unit) -> ('a, 'b) t -> unit = fun f l ->
+  List.iteri f (unsafe l)
 
 let tuple2 : type a . a list2 -> (a * a) = fun (Cons (a, Cons (b, Nil))) -> (a,b)
 

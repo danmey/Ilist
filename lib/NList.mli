@@ -36,6 +36,11 @@
 
     List of exact number of elements
     List of exact or greater number of elements
+
+    All the operations on lists try to preserve
+    constraints. Operations like flatten or append has been ommited as
+    it's not possible to type them with GATDs. User therefore is
+    responsible to convert them to normal list and apply then the needed operation.
 *)
 
 (** Module used for syntax extensions *)
@@ -73,6 +78,9 @@ type 'a list3 = ('a, nil cons cons cons) t
 (** List of 3 or more elements  *)
 type ('a, 'b) list3x = ('a, 'b cons cons cons) t
 
+(** Length of list *)
+val length : ('a, 'b) t -> int
+
 (** Invariant preserving head of list *)
 val hd : ('a, 'b cons) t -> 'a
 
@@ -85,15 +93,23 @@ val cons : 'a -> ('a, 'b) t -> ('a, 'b cons) t
 (** Invariant preserving map operation *)
 val map : ('a -> 'c) -> ('a, 'b) t -> ('c, 'b) t
 
+(** Invariant preserving reverse map operation *)
+(* val rev_map : ('a -> 'b) -> 'a list -> 'b list *)
+
+(** Invariant preserving map operation *)
+val mapi : (int -> 'a -> 'c) -> ('a, 'b) t -> ('c, 'b) t
+
 (** Invariant preserving iter operation *)
 val iter : ('a -> unit) -> ('a, 'b) t -> unit
+
+(** Invariant preserving iteri operation *)
+val iteri : (int -> 'a -> unit) -> ('a, 'b) t -> unit
 
 (** Invariant preserving rev operation *)
 val rev : ('a, 'b) t -> ('a, 'b) t
 
 (** List of one element *)
-val singleton : 'a ->
-('a, nil cons) t
+val singleton : 'a -> ('a, nil cons) t
 
 (** Convert list of exact 2 elements to tuple *)
 val tuple2 : 'a list2 -> 'a * 'a
@@ -130,6 +146,27 @@ val safe2 : 'a -> 'a ->  'a list2
 
 (** Converting from normal list to list of three elements *)
 val safe3 : 'a -> 'a -> 'a -> 'a list3
+
+(** Reversing list *)
+val rev : ('a, 'b) t -> ('a, 'b) t
+
+(** Combining two lists *)
+val combine : ('a, 'c) t -> ('b, 'c) t -> ('a * 'b, 'c) t
+
+(** Splitting list *)
+val split : ('a * 'b, 'c) t -> ('a, 'c) t * ('b, 'c) t
+
+(** List of two elements to tuple *)
+val tuple2 : 'a list2 -> 'a * 'a
+
+(** List of three elements to tuple *)
+val tuple3 : 'a list3 -> 'a * 'a * 'a
+
+(** First two elements of a list to tuple *)
+val first2 : ('a, 'b) list2x -> 'a * 'a
+
+(** First three elements of a list to tuple *)
+val first3 : ('a, 'b) list3x -> 'a * 'a * 'a
 
 (** Infix cons operator *)
 val (^:) : 'a -> ('a, 'b) t -> ('a, 'b cons) t

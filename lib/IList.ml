@@ -31,6 +31,11 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   ---------------------------------------------------------------------------*)
 
+(** Implementation of extensible tuples
+
+    This module is still experimental.
+*)
+
 module Types = struct
   type (_, _) cons = private TCons
   type nil = private TNil
